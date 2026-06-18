@@ -3,7 +3,7 @@ import { getToken, removeToken, isTokenExpired } from './tokenUtils'
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  timeout: 40000,
+  timeout: 30000,
 })
 const redirectToLogin = () => {
   if (globalThis.window?.location.pathname !== '/login') {

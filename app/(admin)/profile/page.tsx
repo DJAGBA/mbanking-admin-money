@@ -22,6 +22,7 @@ export default function ProfilePage() {
     if (stored) {
       try {
         const parsed = JSON.parse(stored) as Profile;
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setProfile(parsed);
         return;
       } catch {

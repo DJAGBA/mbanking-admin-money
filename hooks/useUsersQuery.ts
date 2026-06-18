@@ -3,7 +3,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getUsers } from '@/services/users.service';
 import type { ListUsersResponse } from '@/src/types/user';
-
 interface UseUsersQueryOptions {
   page?: number;
   limit?: number;
@@ -12,7 +11,6 @@ interface UseUsersQueryOptions {
   enabled?: boolean;
   useMockOnError?: boolean;
 }
-
 const MOCK_DATA: ListUsersResponse = {
   status: { code: 200, message: "Success" },
   data: {
@@ -46,7 +44,6 @@ const MOCK_DATA: ListUsersResponse = {
     },
   },
 };
-
 export function useUsersQuery(options: UseUsersQueryOptions = {}) {
   const {
     page = 1,
@@ -56,12 +53,9 @@ export function useUsersQuery(options: UseUsersQueryOptions = {}) {
     enabled = true,
     useMockOnError = false,
   } = options;
-
   const validatedPage = Math.max(1, page);
   const validatedLimit = Math.min(Math.max(1, limit), 100);
-
   const queryKey = ['users', { page: validatedPage, limit: validatedLimit, search, active }];
-
   const query = useQuery({
     queryKey,
     queryFn: async (): Promise<ListUsersResponse> => {

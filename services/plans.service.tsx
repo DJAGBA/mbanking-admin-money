@@ -1,12 +1,5 @@
 import axios from '@/lib/axios';
-import type {
-  Plan,
-  CreatePlanRequest,
-  UpdatePlanRequest,
-  ListPlansResponse,
-  GetPlanResponse,
-} from '@/src/types/plan';
-
+import type { Plan,CreatePlanRequest,UpdatePlanRequest,ListPlansResponse,GetPlanResponse,} from '@/src/types/plan';
 // GET /plans
 export const getPlans = async (
   page: number = 1,

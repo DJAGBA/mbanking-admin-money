@@ -1,13 +1,5 @@
 import axios from '@/lib/axios';
-import type {
-  Bank,
-  CreateBankRequest,
-  UpdateBankRequest,
-  CreateServiceRequest,
-  ListBanksResponse,
-  GetBankResponse,
-} from '@/src/types/bank';
-
+import type { Bank,CreateBankRequest,UpdateBankRequest,CreateServiceRequest,ListBanksResponse,GetBankResponse,} from '@/src/types/bank';
 // GET /banks (List with pagination)
 export const getBanks = async (page: number = 1, limit: number = 20) => {
   const response = await axios.get<ListBanksResponse>(
@@ -16,7 +8,6 @@ export const getBanks = async (page: number = 1, limit: number = 20) => {
   // Extracting the inner "data" object to match the frontend expected structure
   return response.data; 
 };
-
 // GET /banks/:id (Single bank details)
 export const getBankById = async (id: string) => {
   const response = await axios.get<GetBankResponse>(`/banks/${id}`);

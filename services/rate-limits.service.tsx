@@ -1,12 +1,5 @@
 import axios from '@/lib/axios';
-import type {
-  AssignPlanRequest,
-  UpdateCustomLimitsRequest,
-  ListRateLimitsResponse,
-  GetRateLimitResponse,
-  RateLimitHistoryResponse,
-} from '@/src/types/rate-limit';
-
+import type {AssignPlanRequest,UpdateCustomLimitsRequest,ListRateLimitsResponse,GetRateLimitResponse,RateLimitHistoryResponse,} from '@/src/types/rate-limit';
 // GET /rate-limits
 export const getRateLimits = async (
   page: number = 1,
@@ -19,7 +12,6 @@ export const getRateLimits = async (
   params.append('limit', Math.min(limit, 100).toString());
   if (planName) params.append('planName', planName);
   if (active !== undefined) params.append('active', active.toString());
-
   const response = await axios.get<ListRateLimitsResponse>(
     `/rate-limits?${params.toString()}`
   );
@@ -27,16 +19,12 @@ export const getRateLimits = async (
 };
 // GET /rate-limits/users/:userId
 export const getRateLimitByUser = async (userId: string) => {
-  const response = await axios.get<GetRateLimitResponse>(
-    `/rate-limits/users/${userId}`
-  );
+  const response = await axios.get<GetRateLimitResponse>(`/rate-limits/users/${userId}`);
   return response.data.data;
 };
 // POST /rate-limits/users/:userId/assign
 export const assignPlan = async (userId: string, data: AssignPlanRequest) => {
-  const response = await axios.post<GetRateLimitResponse>(
-    `/rate-limits/users/${userId}/assign`, data
-  );
+  const response = await axios.post<GetRateLimitResponse>(`/rate-limits/users/${userId}/assign`, data);
   return response.data.data;
 };
 // PATCH /rate-limits/users/:userId/custom-limits

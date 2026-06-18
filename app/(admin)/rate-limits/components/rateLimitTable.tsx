@@ -4,13 +4,11 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { RateLimit } from '@/src/types/rate-limit';
 import { Eye, Pencil, XCircle, CheckCircle } from 'lucide-react';
-
 interface RateLimitTableProps {
   readonly rateLimits: RateLimit[];
   readonly onDeactivate: (userId: string) => void;
   readonly onEdit?: (userId: string) => void;
 }
-
 interface ActionButtonProps {
   onClick: () => void;
   icon: React.ElementType;

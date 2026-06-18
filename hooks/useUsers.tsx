@@ -1,25 +1,14 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import {
-  getUsers,
-  createUser,
-  updateUser,
-  deleteUser,
-  activateUser,
-  deactivateUser,
-  resetPassword,
-  revokeTokens,
-} from '@/services/users.service';
+import { getUsers,createUser,updateUser,deleteUser,activateUser,deactivateUser,resetPassword,revokeTokens,} from '@/services/users.service';
 import type { UserData, CreateUserRequest, UpdateUserRequest } from '@/src/types/user';
-
 interface PaginationState {
   page: number;
   limit: number;
   total: number;
   totalPages: number;
 }
-
 interface UseUsersReturn {
   users: UserData[];
   isFetching: boolean;
@@ -36,7 +25,6 @@ interface UseUsersReturn {
   revokeToken: (userId: string) => Promise<unknown>;
   clearError: () => void;
 }
-
 export function useUsers(): UseUsersReturn {
   const [users, setUsers] = useState<UserData[]>([]);
   const [isFetching, setIsFetching] = useState(false);
@@ -48,7 +36,6 @@ export function useUsers(): UseUsersReturn {
     total: 0,
     totalPages: 0,
   });
-
   // ========== FETCH ==========
   const fetchUsers = useCallback(
     async (page = 1, limit = 10, search = '', active?: boolean) => {
@@ -74,9 +61,7 @@ export function useUsers(): UseUsersReturn {
     },
     []
   );
-
   // ========== MUTATIONS ==========
-
 // Mutation helper (tsx-compatible)
 async function withMutation<T>(
   fn: () => Promise<T>,
@@ -97,7 +82,6 @@ async function withMutation<T>(
     setIsMutating(false);
   }
 }
-
   const handleCreateUser = useCallback(
     async (userData: CreateUserRequest): Promise<UserData> => {
       const newUser = await withMutation(() => createUser(userData), setIsMutating, setError);
@@ -106,7 +90,6 @@ async function withMutation<T>(
     },
     [setIsMutating, setError]
   );
-
   const handleUpdateUser = useCallback(
     async (id: string, userData: UpdateUserRequest): Promise<UserData> => {
       const updatedUser = await withMutation(() => updateUser(id, userData), setIsMutating, setError);
@@ -115,7 +98,6 @@ async function withMutation<T>(
     },
     [setIsMutating, setError]
   );
-
   const handleActivateUser = useCallback(
     async (id: string): Promise<UserData> => {
       const updatedUser = await withMutation(() => activateUser(id), setIsMutating, setError);
@@ -124,7 +106,6 @@ async function withMutation<T>(
     },
     [setIsMutating, setError]
   );
-
   const handleDeactivateUser = useCallback(
     async (id: string): Promise<UserData> => {
       const updatedUser = await withMutation(() => deactivateUser(id), setIsMutating, setError);
@@ -133,14 +114,12 @@ async function withMutation<T>(
     },
     [setIsMutating, setError]
   );
-
   const handleResetPassword = useCallback(
     async (id: string) => {
       return withMutation(() => resetPassword(id), setIsMutating, setError);
     },
     [setIsMutating, setError]
   );
-
   const handleDeleteUser = useCallback(
     async (id: string): Promise<void> => {
       await withMutation(() => deleteUser(id), setIsMutating, setError);
@@ -149,16 +128,13 @@ async function withMutation<T>(
     },
     [setIsMutating, setError]
   );
-
   const handleRevokeToken = useCallback(
     async (userId: string) => {
       return withMutation(() => revokeTokens(userId), setIsMutating, setError);
     },
     [setIsMutating, setError]
   );
-
   const clearError = useCallback(() => setError(null), []);
-
   return {
     users,
     isFetching,

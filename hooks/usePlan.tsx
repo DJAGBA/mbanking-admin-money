@@ -1,21 +1,8 @@
 'use client';
-
 import { useState, useCallback } from 'react';
-import {
-  getPlans,
-  getPlanById,
-  createPlan,
-  updatePlan,
-} from '@/services/plans.service';
+import {getPlans,getPlanById,createPlan,updatePlan,} from '@/services/plans.service';
 import type { Plan, CreatePlanRequest, UpdatePlanRequest } from '@/src/types/plan';
-
-interface PaginationState {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-}
-
+interface PaginationState { page: number;limit: number;total: number;totalPages: number;}
 interface UsePlansReturn {
   plans: Plan[];
   selectedPlan: Plan | null;
@@ -30,7 +17,6 @@ interface UsePlansReturn {
   selectPlan: (plan: Plan | null) => void;
   clearError: () => void;
 }
-
 export function usePlans(): UsePlansReturn {
   const [plans, setPlans] = useState<Plan[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
@@ -43,7 +29,6 @@ export function usePlans(): UsePlansReturn {
     total: 0,
     totalPages: 0,
   });
-
   // Mutation helper
  const withMutation = useCallback(
   async <T,>(fn: () => Promise<T>): Promise<T> => {
@@ -62,7 +47,6 @@ export function usePlans(): UsePlansReturn {
   },
   []
 );
-
   // Fetch list
   const fetchPlans = useCallback(
     async (page = 1, limit = 20, active?: boolean) => {
@@ -88,7 +72,6 @@ export function usePlans(): UsePlansReturn {
     },
     []
   );
-
   // Fetch by ID
   const fetchPlanById = useCallback(
     async (id: string): Promise<Plan | null> => {
@@ -107,7 +90,6 @@ export function usePlans(): UsePlansReturn {
     },
     []
   );
-
   // Create
   const handleCreatePlan = useCallback(
     async (data: CreatePlanRequest): Promise<Plan> => {
@@ -115,7 +97,6 @@ export function usePlans(): UsePlansReturn {
     },
     [withMutation]
   );
-
   // Update
   const handleUpdatePlan = useCallback(
     async (id: string, data: UpdatePlanRequest): Promise<Plan> => {
@@ -125,27 +106,12 @@ export function usePlans(): UsePlansReturn {
     },
     [withMutation]
   );
-
   // Select
   const selectPlan = useCallback((plan: Plan | null) => {
     setSelectedPlan(plan);
   }, []);
-
   // Clear error
   const clearError = useCallback(() => setError(null), []);
-
-  return {
-    plans,
-    selectedPlan,
-    isFetching,
-    isMutating,
-    error,
-    pagination,
-    fetchPlans,
-    fetchPlanById,
-    createPlan: handleCreatePlan,
-    updatePlan: handleUpdatePlan,
-    selectPlan,
-    clearError,
+  return { plans,selectedPlan,isFetching,isMutating,error,pagination,fetchPlans,fetchPlanById,createPlan: handleCreatePlan,updatePlan: handleUpdatePlan,selectPlan,clearError,
   };
 }

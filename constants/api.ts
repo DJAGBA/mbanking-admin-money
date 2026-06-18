@@ -2,9 +2,7 @@
  * API Endpoints Constants
  * Centralized definition of all API endpoints
  */
-
 // ========== HELPERS ==========
-
 /**
  * Construit une URL avec des query params
  * Filtre automatiquement les valeurs undefined et vides
@@ -21,13 +19,10 @@ export const buildUrl = (
       searchParams.append(key, String(value));
     }
   });
-
   const queryString = searchParams.toString();
   return queryString ? `${endpoint}?${queryString}` : endpoint;
 };
-
 // ========== ENDPOINTS ==========
-
 export const API_ENDPOINTS = {
   // Auth
   AUTH: {
@@ -36,7 +31,6 @@ export const API_ENDPOINTS = {
     REFRESH: '/auth/refresh',
     VERIFY: '/auth/verify',
   },
-
   // Users
   USERS: {
     LIST: '/users',
@@ -44,14 +38,12 @@ export const API_ENDPOINTS = {
     GET_BY_ID: (id: string) => `/users/${id}`,
     UPDATE: (id: string) => `/users/${id}`,
     DELETE: (id: string) => `/users/${id}`,
-
     // User actions
     ACTIVATE: (id: string) => `/users/${id}/activate`,
     DEACTIVATE: (id: string) => `/users/${id}/deactivate`,
     RESET_PASSWORD: (id: string) => `/users/${id}/reset-password`,
     REVOKE_TOKEN: (id: string) => `/users/${id}/revoke-token`,
   },
-
   // Plans (future)
   PLANS: {
     LIST: '/plans',
@@ -60,7 +52,6 @@ export const API_ENDPOINTS = {
     UPDATE: (id: string) => `/plans/${id}`,
     DELETE: (id: string) => `/plans/${id}`,
   },
-
   // Rate Limits (future)
   RATE_LIMITS: {
     LIST: '/rate-limits',
@@ -68,11 +59,9 @@ export const API_ENDPOINTS = {
     GET_BY_ID: (id: string) => `/rate-limits/${id}`,
     UPDATE: (id: string) => `/rate-limits/${id}`,
     DELETE: (id: string) => `/rate-limits/${id}`,
-
     BY_PLANS: '/rate-limits/plans',
     BY_URLS: '/rate-limits/urls',
   },
-
   // Banks (future)
   BANKS: {
     LIST: '/banks',
@@ -81,7 +70,6 @@ export const API_ENDPOINTS = {
     UPDATE: (id: string) => `/banks/${id}`,
     DELETE: (id: string) => `/banks/${id}`,
   },
-
   // Tokens (future)
   /*
   TOKENS: {
@@ -91,29 +79,23 @@ export const API_ENDPOINTS = {
   },
   */
 } as const;
-
 // ========== CONFIGURATION ==========
-
 export const API_CONFIG = {
   // Mock API for development
   USE_MOCK: process.env.NEXT_PUBLIC_USE_MOCK === 'true',
 
   // API Base URL
   BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'https://a944a265-421a-4638-b03a-bc21fc7b6531.mock.pstmn.io',
-
   // Timeouts (ms)
   TIMEOUT: 10_000,
   UPLOAD_TIMEOUT: 60_000,
 } as const;
-
 // ========== MOCK SCENARIOS ==========
-
 export const MOCK_SCENARIOS = {
   // Auth
   AUTH_SUCCESS: 'success',
   AUTH_INVALID_CREDENTIALS: 'invalid_credentials',
   AUTH_MISSING_FIELDS: 'missing_fields',
-
   // Users
   USERS_LIST: 'list_users',
   USERS_FOUND: 'found',
@@ -123,8 +105,6 @@ export const MOCK_SCENARIOS = {
   USERS_MISSING_EMAIL: 'missing_email',
   USERS_UNKNOWN_FIELD: 'unknown_field',
 } as const;
-
 // ========== TYPES (optionnel mais pratique) ==========
-
 export type ApiEndpoint = typeof API_ENDPOINTS;
 export type MockScenario = typeof MOCK_SCENARIOS[keyof typeof MOCK_SCENARIOS];

@@ -6,9 +6,7 @@ interface SidebarContextType {
   setIsCollapsed: (collapsed: boolean) => void;
   isHydrated: boolean;
 }
-
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
-
 export function SidebarProvider({ children }: { readonly children: React.ReactNode }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
@@ -40,14 +38,12 @@ export function SidebarProvider({ children }: { readonly children: React.ReactNo
     () => ({ isCollapsed, setIsCollapsed: handleSetCollapsed, isHydrated }),
     [isCollapsed, isHydrated, handleSetCollapsed]
   );
-
   return (
     <SidebarContext.Provider value={value}>
       {children}
     </SidebarContext.Provider>
   );
 }
-
 export function useSidebar(): SidebarContextType {
   const context = useContext(SidebarContext);
   if (context === undefined) {
