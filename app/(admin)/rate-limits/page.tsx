@@ -13,13 +13,13 @@ import { AssignUrlUserStepper } from './components/urlUserForm';
 import { DeclareUrlUserWizard } from './components/declareUrlUser';
 import { Pagination } from '@/components/ui/pagination';
 import { ConfirmDialog } from '@/components/ui/confirmDialog';
+import { useRouter } from 'next/navigation';
 import { Plus, RotateCw, AlertCircle, X, Zap, Link2 } from 'lucide-react';
-import RateLimitDetailModal from './components/rateLimitDetailModal';
 
 export default function LimitesPage() {
   const [activeTab, setActiveTab] = useState<'plans' | 'urls'>('plans');
   const [successMessage, setSuccessMessage] = useState('');
-
+  const router = useRouter();
   const [rateLimits, setRateLimits] = useState<RateLimit[]>([]);
   const [rateLimitsLoading, setRateLimitsLoading] = useState(true);
   const [rateLimitsError, setRateLimitsError] = useState('');
@@ -29,7 +29,6 @@ export default function LimitesPage() {
   const [rateLimitsTotalPages, setRateLimitsTotalPages] = useState(0);
   const [planName, setPlanName] = useState<string | undefined>(undefined);
   const [active, setActive] = useState<boolean | undefined>(undefined);
-  const [detailUserId, setDetailUserId] = useState<string | null>(null);
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
   const [editingRateLimit, setEditingRateLimit] = useState<RateLimit | null>(null);
   const [showCustomForm, setShowCustomForm] = useState(false);
@@ -270,12 +269,6 @@ export default function LimitesPage() {
         />
       )}
 
-      {detailUserId && (
-        <RateLimitDetailModal
-          userId={detailUserId}
-          onClose={() => setDetailUserId(null)}
-        />
-      )}
 
       {showCustomForm && editingRateLimit && (
         <CustomLimitsForm
@@ -413,7 +406,7 @@ export default function LimitesPage() {
                     rateLimits={rateLimits}
                     onEdit={handleEdit}
                     onDeactivate={handleDeactivate}
-                    onDetail={(userId) => setDetailUserId(userId)}
+                    onDetail={(userId) => router.push(`/rate-limits/${userId}`)}
                   />
                   <div className="border-t border-gray-200">
                     <Pagination

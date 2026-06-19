@@ -49,11 +49,9 @@ const InputField = ({ label, error, required, id, className, ...props }: InputFi
     )}
   </div>
 );
-
 // ==========================================
 // MAIN USERFORM COMPONENT
 // ==========================================
-
 export function UserForm({ user, onSubmit, onCancel }: UserFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -72,7 +70,6 @@ export function UserForm({ user, onSubmit, onCancel }: UserFormProps) {
     momoAlias: user?.momoAlias || '', 
     active: user?.active ?? true,
   });
-
   // Global listener for the 'Escape' key to dismiss the modal safely
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => { 
@@ -81,7 +78,6 @@ export function UserForm({ user, onSubmit, onCancel }: UserFormProps) {
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
   }, [onCancel, loading]);
-
   /**
    * Universal change handler for standard textual inputs and top-level boolean checkboxes
    */
@@ -157,7 +153,7 @@ export function UserForm({ user, onSubmit, onCancel }: UserFormProps) {
           {/* Form Modal Header */}
           <div className="p-6 border-b flex items-center justify-between">
             <h2 className="text-xl font-bold text-gray-900">
-              {user ? "Modify User" : 'Nouvel utilisateur'}
+              {user ? "Modifier l'utilisateur" : 'Nouvel utilisateur'}
             </h2>
             <button 
               type="button"
