@@ -8,6 +8,7 @@ interface RateLimitTableProps {
   readonly rateLimits: RateLimit[];
   readonly onDeactivate: (userId: string) => void;
   readonly onEdit?: (userId: string) => void;
+  readonly onDetail?: (userId: string) => void;
 }
 interface ActionButtonProps {
   onClick: () => void;
@@ -51,7 +52,7 @@ const ActionButton = ({ onClick, icon: Icon, label, variant = 'blue' }: ActionBu
   );
 };
 
-export function RateLimitTable({ rateLimits, onDeactivate, onEdit }: RateLimitTableProps) {
+export function RateLimitTable({ rateLimits, onDeactivate, onEdit, onDetail }: RateLimitTableProps) {
   const router = useRouter();
 
   if (rateLimits.length === 0) {
@@ -112,7 +113,7 @@ export function RateLimitTable({ rateLimits, onDeactivate, onEdit }: RateLimitTa
                   <ActionButton
                     icon={Eye}
                     label="Voir détails"
-                    onClick={() => router.push(`/rate-limits/${item.userId}`)}
+                    onClick={() => onDetail?.(String(item.userId))}
                   />
                   <ActionButton
                     icon={Pencil}

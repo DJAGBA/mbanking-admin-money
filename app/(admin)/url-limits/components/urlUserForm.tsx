@@ -4,8 +4,14 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { X, ChevronRight, ChevronLeft, Check, CheckCircle2 } from 'lucide-react';
 import { getUsers } from '@/services/users.service';
 import { UserData } from '@/src/types/user';
-import { RateLimit } from '@/src/types/rate-limit';
 import { Pagination } from '@/components/paginations';
+type UserWithLimits = {
+  userId: string | number;
+  username?: string;
+  pointsPerMinute?: number;
+  pointsPerHour?: number;
+  pointsPerDay?: number;
+}
 
 const USERS_PER_PAGE = 5;
 
@@ -14,7 +20,7 @@ export function AssignUrlUserStepper({
   onSubmit,
   onCancel,
 }: {
-  user: RateLimit | null;
+  user: UserWithLimits | null;  // ← était RateLimit | null
   onSubmit: (userId: string, payload: {
     pointsPerMinute: number;
     pointsPerHour: number;

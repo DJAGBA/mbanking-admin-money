@@ -165,7 +165,7 @@ export default function LoginPage() {
 
       <div className="hidden lg:flex w-full lg:w-1/2 bg-white flex-col justify-center items-center px-6 md:px-12 py-8">
         <Image
-          src="/sss.png"
+          src="/auth.png"
           alt="Security illustration"
           width={300}
           height={300}

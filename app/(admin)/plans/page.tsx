@@ -14,6 +14,7 @@ import { AssignPlanForm } from './components/assignPlanForm';
 import { assignPlan } from '@/services/rate-limits.service';
 import { AssignPlanRequest } from '@/src/types/rate-limit';
 import axios from '@/lib/axios';
+import { isAxiosError } from 'axios'
 
 export default function PlansPage() {
   const [plans, setPlans] = useState<Plan[]>([]);
@@ -150,14 +151,13 @@ export default function PlansPage() {
           } catch (err: unknown) {
   let apiMessage: string | undefined;
 
-  if (axios.isAxiosError(err)) {
-    apiMessage = err.response?.data?.message || err.message;
-  } else if (err instanceof Error) {
-    apiMessage = err.message;
-  }
-
-  setError(`Erreur lors du changement de statut : ${apiMessage || "Serveur injoignable"}`);
-  setDialogOpen(false);
+     if (isAxiosError(err)) {
+  apiMessage = err.response?.data?.message || err.message;
+    } else if (err instanceof Error) {
+        apiMessage = err.message;
+    }
+       setError(`Erreur lors du changement de statut : ${apiMessage || "Serveur injoignable"}`);
+         setDialogOpen(false);
      }
         },
         onCancel: () => setDialogOpen(false),
